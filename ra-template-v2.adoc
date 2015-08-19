@@ -1,0 +1,709 @@
+= Style Guide and Template
+Roger Lopez <rlopez@redhat.com>
+v1.3, 2015-08-07: The first asciidoc incarnation of using RA styles and template
+:description: Asciidoc of our Styles and Template Guide to replace Libre Office .ott file.
+:doctype: book
+:title-logo-image: image:images/rh-ra-banner.png[scaledwidth=70%,align=center]
+// Settings:
+:compat-mode!:
+:autofit:
+:numbered:
+:chapter-label:
+:specialnumbered!:
+
+:experimental:
+:listing-caption: Listing
+//:back-cover-image: image:images/bckcover.pdf[]
+:icons: font
+:toc:
+:toclevels: 3
+ifdef::backend-pdf[]
+:pagenums:
+:tabsize: 4
+:pygments-style: bw
+:source-highlighter: pygments
+endif::[]
+
+[abstract]
+//empty on purpose so that legal can be on separate page and not conflict with toc
+
+<<<
+ 
+100 East Davie Street +
+Raleigh NC 27601 USA +
+Phone: +1 919 754 3700 +
+Phone: 888 733 4281 +
+Fax: +1 919 754 3701 +
+PO Box 13588 +
+Research Triangle Park NC 27709 USA +
+
+Linux is a registered trademark of Linus Torvalds. Red Hat, Red Hat Enterprise Linux and the Red Hat "Shadowman" logo are registered trademarks of Red Hat, Inc. in the United States and other countries.
+
+Ceph is a registered trademark of Red Hat, Inc.
+
+UNIX is a registered trademark of The Open Group.
+
+Intel, the Intel logo and Xeon are registered trademarks of Intel Corporation or its subsidiaries in the United States and other countries.
+All other trademarks referenced herein are the property of their respective owners.
+
+© 2015 by Red Hat, Inc. This material may be distributed only subject to the terms and conditions set forth in the Open Publication License, V1.0 or later (the latest version is presently available at http://www.opencontent.org/openpub/).
+
+The information contained herein is subject to change without notice. Red Hat, Inc. shall not be liable for technical or editorial errors or omissions contained herein.
+
+Distribution of modified versions of this document is prohibited without the explicit permission of Red Hat Inc.
+
+Distribution of this work or derivative of this work in any standard (paper) book form for commercial purposes is prohibited unless prior permission is obtained from Red Hat Inc.
+
+The GPG fingerprint of the security@redhat.com key is:
+CA 20 86 86 2B D6 9D FC 65 F6 EC C4 21 91 80 CD DB 42 A6 0E
+
+Send feedback to refarch-feedback@redhat.com
+
+<<<
+
+== Comments and Feedback
+
+In the spirit of open source, we invite anyone to provide feedback and comments on any reference architectures. Although we review our papers internally, sometimes issues or typographical errors are encountered. Feedback allows us to not only improve the quality of the papers we produce, but allows the reader to provide their thoughts on potential improvements and topic expansion to the papers.
+Feedback on the papers can be provided by emailing refarch-feedback@redhat.com. Please refer to the title within the email.
+
+=== Staying In Touch
+
+Join us on some of the popular social media sites where we keep our audience informed on new reference architectures as well as offer related information on things we find interesting.
+
+==== Like us on Facebook:
+https://www.facebook.com/rhrefarch
+
+==== Follow us on Twitter:
+https://twitter.com/RedHatRefArch
+
+==== Plus us on Google+
+https://plus.google.com/u/0/b/114152126783830728030/
+
+
+== Questions and Concerns About using Asciidoc
+
+=== _Asciidoctor.org_
+Read as many of these as time allows. This will greatly increase efficiency while writing asciidocs. 
+
+* http://asciidoctor.org/[Asciidoctor.org]
+* http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
+* http://www.methods.co.nz/asciidoc/userguide.html[Asciidoc Userguide]
+
+=== _How to install Asciidoctor_
+
+Asciidoctor works on Linux, OSX (Mac) and Windows and requires one of the following implementations of Ruby:
+
+* MRI (Ruby 1.8.7, 1.9.3, 2.0.0 & 2.1.2)
+* JRuby 1.7 (Ruby 1.8 and 1.9 modes)
+* Rubinius 2.2.x
+* Opal (JavaScript)
+
+There are several methods to install Asciidoctor as documented within https://github.com/asciidoctor/asciidoctor[GitHub's AsciiDoctor], however, the steps below are how I installed it. I use asciidoctor for creation of HTML docs. 
+
+With a terminal window, execute the following command
+
+[source,shell]
+$ gem install asciidoctor
+
+NOTE: If you have an earlier version of Asciidoctor installed, you can update it using:
+
+[source,shell]
+$ gem update asciidoctor
+
+NOTE: Within Fedora 18 or greater, you can install asciidoctor using `yum` however, I did not chose this route as on Fedora 20 the version is 0.1.4 and the latest version is 1.5.2
+
+<<<
+
+Once Asciidoctor gem installed successfully the asciidoctor command line interface (CLI) willb e available on your PATH. To verify it is available, run the following command:
+
+[source,shell]
+$ asciidoctor --version
+
+The info provided is the asciidoctor version and ruby environment version
+
+[source,shell]
+----
+Asciidoctor 1.5.2 [http://asciidoctor.org]
+Runtime Environment (ruby 2.0.0p353 (2013-11-22 revision 43784) [i386-linux]) (lc:UTF-8 fs:UTF-8 in:- ex:UTF-8)
+----
+
+=== _How to install Asciidoctor-PDF_
+
+To install asciidoctor-pdf (alpha software) follow the steps below.
+
+My preferred method to install asciidoctor-pdf is to use RVM. `RVM` allows one to have separate _workspaces_ called _gemsets_ that key each Ruby environment completely isolated from another. It also doesn't require root access. The nice part of this since asciidoctor-pdf is still alpha, it allows me to keep different versions in different workspaces making it easier to test between dev, latest alpha and alpha-1 versions.
+
+With a terminal window, execute the following command to setup an RVM environment. For more info on RVM, visit https://rvm.io
+
+. Import the key of the RVM team which will be used to validate archives:
++
+[subs=+quotes]
+----
+$ *gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3*
+----
++
+. Next, install the RVM script in your home directory (resides in $HOME/.rvm):
++
+[subs=+quotes]
+----
+$ *\curl -sSL https://get.rvm.io | bash -s stable*
+----
++
+. Source your bash profile
++
+[subs=+quotes]
+----
+$ *source ~/.bash_profile*
+----
++
+<<<
+
++
+. Install at least one version of Ruby, version 2.2 is the one used.
++
+[subs=+quotes]
+----
+$ *rvm install 2.2*
+----
++
+. Finally, you'll be ready to start creating gemsets (aka workspaces). Here's how you create and switch to a new gemset:
++
+[subs=+quotes]
+----
+$ *rvm use 2.2@asciidoctor-pdf-dev --create*
+----
++
+NOTE: After the gemset is created, the `--create flag` is not required. Each time you call `rvm use`, it will switch to an isolated workspace.
+
++
+
+. Once the development asciidoctor-pdf-dev workspace is created, git clone the repository to get the latest version.
+. Confirm the rvm workspace is using asciidoctor-pdf-dev via:
++
+
+[subs=+quotes]
+----
+$ *rvm current*
+ruby-2.2.1@asciidoctor-pdf-dev
+----
++
+. Git clone the asciidoctor-pdf-dev repository
++
+
+[subs=+quotes]
+----
+$ *git clone https://github.com/asciidoctor/asciidoctor-pdf*
+----
++
+. Install bundler using gem
++
+[subs=+quotes]
+----
+$ *gem install bundler*
+----
++
+
+. Change directory into asciidoctor-pdf-dev directory.
++
+
+[subs=+quotes]
+----
+$ *cd /path/to/asciidoctor-pdf-dev*
+----
++
+. Use `bundle` command to install dependences
++
+
+[subs=+quotes]
+----
+$ *bundle*
+----
++
+<<<
+
++
+. Install the syntax highlight source listings.
++
+[subs=+quotes]
+----
+$ *gem install coderay*
+$ *gem install rouge*
+$ *gem install pygments.rb*
+----
++
+
+. Confirm the required gems install properly, and verify the `asciidoctor-pdf` version
++
+
+[subs=+quotes]
+----
+$ */path/to/asciidoctor-pdf/bin/asciidoctor-df -v*
+Asciidoctor PDF 1.5.0.dev using Asciidoctor 1.5.2 [http://asciidoctor.org]
+Runtime Environment (ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-linux]) (lc:UTF-8 fs:UTF-8 in:- ex:UTF-8)
+----
++
+. This completes the steps to create and have the latest dev version of asciidoctor-pdf-dev. The next steps are to install a new workspace that has the latest alpha/beta stable release.
+
+. Once the development asciidoctor-pdf-dev workspace is created, go ahead and create the latest alpha version workspace.
++
+
+NOTE: Latest version at the time of this writing is alpha9
+
++
+[subs=+quotes]
+----
+$ *rvm use 2.2@asciidoctor-pdf-alpha9 --create*
+----
++
+. Confirm rvm version
++
+[subs=+quotes]
+----
+$ *rvm current*
+ruby-2.2.1@asciidoctor-pdf-alpha9
+----
++
+
+. Install asciidoctor-pdf
++
+[subs=+quotes]
+----
+$ *gem install --pre asciidoctor-pdf*
+----
++
+. Install the syntax highlight source listings.
++
+[subs=+quotes]
+----
+$ *gem install coderay*
+$ *gem install rouge*
+$ *gem install pygments.rb*
+----
++
+NOTE: If you have an issue installing _pygments.rb_, it is probably due to requiring `ruby-devel` package.
++
+. Verify install of asciidoctor-pdf-alpha via
++
+
+[subs=+quotes]
+----
+$ *asciidoctor-pdf -v*
+Asciidoctor PDF 1.5.0.alpha.9 using Asciidoctor 1.5.2 [http://asciidoctor.org]
+Runtime Environment (ruby 2.2.1p85 (2015-02-26 revision 49769) [x86_64-linux]) (lc:UTF-8 fs:UTF-8 in:- ex:UTF-8)
+----
+
+
+=== _Convert Asciidoc to PDF_ 
+
+To convert your asciidoc to pdf, using ruby. Follow the steps below.
+
+. `cd` into the /path/to/asciidoctor-pdf/ , example below.
++
+[subs=+quotes]
+----
+$ **/HOMEDIR/.rvm/gems/ruby-2.2.1@asciidoctor-pdf-alpha9/gems/asciidoctor-pdf-1.5.0.alpha.9/data/themes**
+----
++
+. Get the latest copy of the refarch template and place it in the data/themes directory of your specified rvm workspace
++
+
+[subs=+quotes]
+----
+$ **wget https://gist.githubusercontent.com/rlopez133/600279abdc7d05ad91f4/raw/d86523c41885522868d9f4303557df8fe94fbdd1/asciidoctor-theme.yml**
+----
++
+
+NOTE: Within the theme file, you must fix the appropriate locations for your images.
+
++
+
+. Create a pdf from the asciidoc file.
++
+[subs=+quotes]
+----
+$ **./bin/asciidoctor-pdf -a pdf-style=asciidoctor <name>.adoc**
+----
+
+This will place a <name>.pdf into your current directory. 
+
+
+
+== Style Guide 
+* System names should be short functional names.
+* Avoid long references if possible – folder names, urls, filenames.
+
+=== _Good References_
+
+* Red Hat – WordUsage
+** https://home.corp.redhat.com/node/67041
+* Grammar style guide
+** https://home.corp.redhat.com/wiki/red-hat-style-guide
+* Grammar Questions
+** http://www.drgrammar.org/frequently-asked-questions
+
+=== _Things to Avoid_
+
+* Words
+** we
+** us
+** I
+** will
+** you
+** Two spaces next to each other
+** Misspellings
+* Single item lists or sub-sections
+** This is a perfect example of what not to do
+* Tense
+** Try not to write in past tense (e.g. did)
+** Try not to write in future tense (e.g. will)
+** Write in present tense.
+* Inconsistency
+** Be consistent with the writing. Don't change from one style to another during the paper.
+** Ensure all items in a list end with a period or do not
+** Headings are similar. 
+*** Do:	Writing, Reading, Erasing
+*** Don't:	Writing, How to read, Erasing
+** Tables are the same width on all pages.
+* Formatting
+** Never manually format by using inserted newlines or inserting page breaks
+** Instead, use “Format” menu and adjust items in this way
+** If the change is something that applies to everything in the document (e.g. All heading level 2 items should start on a new page), edit the style instead (better yet, change this in the template).
+* Cross-References
+** Only use a cross-reference when the object to be referenced is not directly below or above the reference
+** See https://home.corp.redhat.com/node/49989
+
+=== _Headers_
+
+[discrete]
+= Heading 1 (Level 0)
+
+[source,asciidoc]
+----
+= Heading 1 (Level 0)
+----
+
+[discrete]
+== Heading 2 (Level 1)
+
+[source,asciidoc]
+----
+== Heading 2 (Level 1)
+----
+
+[discrete]
+=== Heading 3 (Level 2)
+
+[source,asciidoc]
+----
+=== Heading 3 (Level 2)
+----
+
+[discrete]
+==== Heading 4 (Level 3)
+
+[source,asciidoc]
+----
+==== Heading 4 (Level 3)
+----
+
+[discrete]
+===== Heading 5 (Level 4)
+
+[source,asciidoc]
+----
+===== Heading 5 (Level 4)
+----
+
+[discrete]
+====== Heading 6 (Level 5)
+
+[source,asciidoc]
+----
+====== Heading 6 (Level 5)
+----
+
+=== _Entity Callouts_
+
+An __entity__ is basically a word or set of words that are not normal English terms that need to be called out in some manner.  When using these words in normal paragraphs, they need to be called out with something like *bold*, _italics_, “quotes”, or a different ++font++. The point is to ensure that the reader is aware that these terms are special, and not to be confused with a normal English word. A simple example would be a sentence as such:
+
+====
+When a node is detected to be not communicating with the cluster it needs to be fenced by fenced.
+====
+
+Without a callout of some kind, this could be confusing. However, with the command fenced in a different style it makes more sense:
+
+.Bold a word syntax
+----
+When a node is detected to be not communicating with the cluster it needs to be fenced by *fenced*.
+----
+
+====
+When a node is detected to be not communicating with the cluster it needs to be fenced by *fenced*.
+====
+
+=== _Character Styles_
+
+These styles only apply to a word or a set of characters. 
+
+==== _Files_
+
+File names should appear in italics if in a paragraph.
+
+.Italizes a file name syntax
+[source,asciidoc]
+The _/etc/resolv.conf_ file configures name lookup settings.
+
+.Result
+====
+The _/etc/resolv.conf_ file configures name lookup settings.
+====
+
+==== _Software Name_
+Callout a command, package name, channel name, project names, products, etc. 
+
+.Software Callout Syntax
+[source,asciidoc]
+`*CloudForms*` is composed of `*Aeolus Conductor*`, `*Application Engine*`, `*deltacloud*`, and many others.
+
+Result: callout syntax showing in bold monospace font.
+====
+`*CloudForms*` is composed of `*Aeolus Conductor*`, `*Application Engine*`, `*deltacloudd*`, and many others.
+====
+
+==== _UI Element_
+
+Use when something needs to be clicked on a UI, selections need to be chosen, radio boxes, check boxes, input field names, etc.
+
+.Button Macro Syntax
+[source,asciidoc]
+Press the btn:[OK] button when you are finished.
+Select a file in the file navigator and click btn:[Open].
+
+.Result: macros displaying UI buttons
+====
+Press the btn:[OK] button when you are finished.
+Select a file in the file navigator and click btn:[Open].
+====
+
+
+
+==== _Important Term_
+When defining a word, make the word(s) italized, and mono space.
+
+.Important Term Syntax
+[source,asciidoc]
+`_DM Multipath_` - Provides multipathing ...
+
+====
+`_DM Multipath_` - Provides multipathing ...
+====
+
+==== _Variable Data_
+User input that changes based on the circumstance.
+
+[source,asciicode]
+Connect to the server via *_ssh username@domain.name_*
+
+====
+Connect to the server via *_ssh username@domain.name_*
+====
+
+==== _Generic Entity_
+When none of these character styles apply but something needs to be called out, use _italics_.
+
+=== Paragraph Styles
+These styles apply to the entire paragraph.
+
+==== _Code_
+
+File contents are highlighted using a background color and `monospace font`.
+
+* Command prompts should be simple, +#+ for root, +$+ for users
+* Command prompts should *not* be bolded.
+* Commands should be *bolded.*
+* Show the commands in a way that the reader can cut and paste them.
+* Use long command line options instead of the single character options if possible. 
+
+[subs=+quotes]
+----
+# *virsh list --all*
+ Id Name                 State 
+---------------------------------- 
+  0 Domain-0            running
+20 x-RHEL4.8-64-FV      idle 
+23 x-RHEL6.0-32-FV      idle 
+ - x-RHEL5.6-64-FV      shut off 
+ - x-RHEL5.6-PV         shut off 
+ - x-W2K3-64-FV         shut off
+----
+
+<<<
+
+==== File Contents
+
+.File Contents Syntax
+[source,ruby,numbered]
+----
+; generated by /sbin/dhclient-script 
+search cloud.lab.eng.bos.redhat.com 
+nameserver 10.16.143.247 
+nameserver 10.16.143.248 
+nameserver 10.16.255.2
+----
+
+====
+; generated by /sbin/dhclient-script + 
+search cloud.lab.eng.bos.redhat.com + 
+nameserver 10.16.143.247 + 
+nameserver 10.16.143.248 + 
+nameserver 10.16.255.2 + 
+====
+
+== Tables
+Should be consistent and same or similar style. If you use cross references for some tables, use them on all tables.
+Tables should not be the first item on a page.
+
+.An example table
+[options="header,footer"]
+|=======================
+|Col 1|Col 2      |Col 3
+|1    |Item 1     |a
+|2    |Item 2     |b
+|3    |Item 3     |c
+|6    |Three items|d
+|=======================
+
+.CSV data, 15% each column
+[format="csv",width="60%",cols="4"]
+[frame="topbot",grid="none"]
+|======
+1,2,3,4
+a,b,c,d
+A,B,C,D
+|======
+
+.Table Examples
+[grid="rows",format="csv"]
+[options="header",cols="^,<,<s,<,>m"]
+|===========================
+ID,FName,LName,Address,Phone
+1,Vasya,Pupkin,London,+123
+2,X,Y,"A,B",45678
+|===========================
+
+.Multiline cells, row/col span
+|====
+|Date |Duration |Avg HR |Notes
+
+|22-Aug-08 .2+^.^|10:24 | 157 |
+Worked out MSHR (max sustainable
+heart rate) by going hard
+for this interval.
+
+|22-Aug-08 | 152 |
+Back-to-back with previous interval.
+
+|24-Aug-08 3+^|none
+
+|====
+
+<<<
+
+.RA-Column Heading
+[format="csv",width="60%",cols="2"]
+[frame="topbot",grid="rows"]
+|====
+Column, Headings
+This is, Data
+And still, More Data
+Data,
+|====
+
+== Figures
+Should be consistent.
+If you use cross references for some figures, use them for all figures.
+Figures should not be the first item on a page.
+Use *inkscape* to create the figures in `Scalable Vector Graphics` format. This makes it easy to re-size the image as needed without losing quality. 
+It also allows easy sharing of images among the teams. Export the image as a png once it is ready and include it in the document.
+
+
+.Different Ways of Adding an Image
+[source,asciidoc]
+----
+image::images/rh-ra-banner.png[]
+image::images/rh-ra-banner.png[RA-Banner]
+
+[[img-rabanner]]
+image::images/rh-ra-banner.png[caption="Figure 1: ", title="The RA Banner", alt="Banner", width="400", height="300"]
+----
+
+image::images/rh-ra-banner.png[]
+image::images/rh-ra-banner.png[RA-Banner]
+
+[[img-rabanner]]
+image::images/rh-ra-banner.png[caption="Figure 1: ", title="The RA Banner", alt="Banner", width="400", height="300"]
+
+== Admonition
+There are certain statements that you may want to draw attention to by taking them out of the content’s flow and labeling them with a priority. These are called admonitions. It’s rendered style is determined by the assigned label (i.e., value). Asciidoctor provides five admonition style labels:
+
+* NOTE
+* TIP
+* IMPORTANT
+* CAUTION
+* WARNING
+
+When you want to call attention to a single paragraph, start the first line of the paragraph with the label you want to use. The label must be uppercase and followed by a colon (:).
+
+.Example of AsciiDoc Syntax
+[source,asciidoc]
+WARNING: Continued usage of Libreoffice is harmful to your health. Test Warning.
+
+
+WARNING: Continued usage of Libreoffice is harmful to your health. Test Warning. 
+
+TIP: A single line. Test tip.
+
+IMPORTANT: A single line. Test important.
+
+CAUTION: A single line. Test caution.
+
+NOTE: A single line. Test note. 
+
+.Multi-line
+CAUTION: Lorem Ipsum
+dolor sit amet, consectetur adipiscing elit. Nullam nulla magna, egestas ut porttitor a, facilisis ac risus.
+Curabitur faucibus pharetra libero et malesuada. Integer sed congue enim. Aliquam condimentum iaculis risus, id aliquam velit
+blandit sed. Donec venenatis eu velit vel congue. Sed dignissim, nunc nec consequat euismod, nibh risus vehicula sapien,
+in condimentum nisi sapien vitae turpis. Donec at orci in tellus pharetra malesuada. Suspendisse potenti.
+
+<<<
+
+[appendix]
+== Example Appendix
+
+AsciiDoc article appendices are just just article sections with
+'specialsection' titles.
+
+[appendix]
+== Another Appendix
+
+AsciiDoc article appendices are just just article sections with
+'specialsection' titles.
+
+Appendix Sub-section
+~~~~~~~~~~~~~~~~~~~~
+Appendix sub-section at level 2.
+
+[glossary]
+== Example Glossary
+
+Glossaries are optional. Glossaries entries are an example of a style
+of AsciiDoc labeled lists.
+
+[glossary]
+A glossary term::
+  The corresponding (indented) definition.
+
+A second glossary term::
+  The corresponding (indented) definition.
+
