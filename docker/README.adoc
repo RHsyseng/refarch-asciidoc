@@ -1,0 +1,37 @@
+You can build the image with the following command.  You'll want to choose which tag you use based on what has been released upstream.  It depends on what is in your dockerfile.  Whether or not you are calling the master branch or a released branch.
+
+```
+docker build -t asciidoctor:dev .
+```
+
+or
+
+```
+docker build -t asciidoctor:stable .
+```
+
+or
+
+```
+docker build -t asciidoctor:1.5.0a8 .
+```
+
+
+After you have built the image, you can run it.
+
+```
+docker run -v /home/scollier/git_projects/ose-ha/:/paper -i -t asciidoctor:dev make
+```
+
+Or, you could just pull what I pushed to the Docker registry:
+
+```
+docker pull docker.io/scollier/asciidoctor:dev
+```
+
+Which cooresponds to the lastest master branch as of 7/2/2015.
+
+One other thing to note.  I am using a SysDes & eng theme created by Roger Lopez.  Shared here:
+
+https://gist.github.com/rlopez133/dbb3c6ea88bd559cf545
+
