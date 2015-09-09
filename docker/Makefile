@@ -1,14 +1,29 @@
-# Example run:
-# docker run -v /home/scollier/git_projects/ose-ha:/paper -i -t asciidoctor:dev-9-9-2015 make docname=ose-dis-arch-Title && evince ose-dis-arch-Title.pdf
+stable-watermark:
+	asciidoctor-pdf -a pdf-style=asciidoctor-watermark $(docname).adoc
+#Example: sudo docker run -v /local/path/to/paper:/paper -i -t asciidoctor:stable-alpha9 make docname=<filename> && evince <filename>.pdf
+#NOTE: :/paper is the remote location within docker image
+#NOTE: Within docname make sure to not include .adoc
 
-LABS=$(docname).adoc
+stable-no-watermark:
+	asciidoctor-pdf -a pdf-style=asciidoctor-no-watermark $(docname).adoc
+#Example: sudo docker run -v /local/path/to/paper:/paper -i -t asciidoctor:stable-alpha9 make stable-no-watermark docname=<filename> && evince <filename>.pdf
+#NOTE: :/paper is the remote location within docker image
+#NOTE: Within docname make sure to not include .adoc
 
-pdf: $(LABS) 
-	ruby /asciidoctor-pdf/bin/asciidoctor-pdf  -a pdf-style=asciidoctor-watermark $(docname).adoc
-	
 clean:
 	find . -type f -name $(docname).pdf -exec rm -f {} \;
 	find . -type f -name \*.pdfmarks -exec rm -f {} \;
+#Example: sudo docker run -v /local/path/to/paper:/paper -i -t asciidoctor:stable-alpha9 make clean docname=<filename>
 
-no-watermark:
+# Below is used for development purposes. It can be used to check out the latest upstream asciidoctor-pdf features.
+
+dev-no-watermark:
 	ruby /asciidoctor-pdf/bin/asciidoctor-pdf -a pdf-style=asciidoctor-no-watermark $(docname).adoc
+#Example: sudo docker run -v /local/path/to/paper:/paper -i -t asciidoctor:dev-9-9-2015 make dev-no-watermark docname=<filename> && evince <filename>.pdf
+#NOTE: :/paper is the remote location within docker image, leave as is
+#NOTE: Within docname make sure to not include .adoc
+dev-watermark:
+	ruby /asciidoctor-pdf/bin/asciidoctor-pdf -a pdf-style=asciidoctor-watermark $(docname).adoc
+#Example: sudo docker run -v /local/path/to/paper:/paper -i -t asciidoctor:dev-9-9-2015 make dev-watermark docname=<filename> && evince <filename>.pdf
+#NOTE: :/paper is the remote location within docker image, leave as is
+#NOTE: Within docname make sure to not include .adoc
