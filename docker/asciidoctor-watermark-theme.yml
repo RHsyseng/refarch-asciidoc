@@ -23,7 +23,7 @@ font:
     - M+ 1p Fallback
 page:
   background_color: ffffff
-  background_image: /paper/images/watermark-draft.png
+  background_image: /home/template_images/watermark-draft.png
   layout: portrait
   # NOTE multiply inches by 72 to get pt values
   #margin: [0.5 * 72, 0.67 * 72, 0.67 * 72, 0.67 * 72]
@@ -264,6 +264,6 @@ header:
   height: 0.75in
   image_valign: 10
   recto_content:
-    right: image:/paper/images/rh-logo.png[width=25]
+    right: image:/home/template_images/rh-logo.png[width=25]
   verso_content:
-    left: image:/paper/images/rh-logo.png[width=25]
+    left: image:/home/template_images/rh-logo.png[width=25]

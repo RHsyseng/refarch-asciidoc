@@ -2,9 +2,10 @@ FROM centos:7
 
 RUN yum install -y git rubygems make && \
 yum clean all && \
-gem install bundler
+gem install bundler && \
+gem install --no-ri --no-rdoc --pre asciidoctor-diagram
 
-ENV DATE 9-9-2015
+ENV DATE 9-10-2015
 
 RUN git clone https://github.com/asciidoctor/asciidoctor-pdf 
 
@@ -15,6 +16,11 @@ ADD ./asciidoctor-no-watermark-theme.yml /asciidoctor-pdf/data/themes/asciidocto
 ADD ./asciidoctor-watermark-theme.yml /asciidoctor-pdf/data/themes/asciidoctor-watermark-theme.yml
 
 ADD ./scripts/version.sh /version.sh
+ADD ./template_images/bckcover.pdf /home/template_images/bckcover.pdf
+ADD ./template_images/rh-logo.png /home/template_images/rh-logo.png
+ADD ./template_images/rh-ra-banner.png /home/template_images/rh-ra-banner.png
+ADD ./template_images/watermark-draft.png /home/template_images/watermark-draft.png
+
 RUN chmod -v +x /version.sh
 
 WORKDIR /paper

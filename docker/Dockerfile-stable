@@ -3,16 +3,21 @@ FROM centos:7
 RUN yum install -y git rubygems make gcc ruby-devel && \
 yum clean all && \
 gem install --pre asciidoctor-pdf && \
+gem install --no-ri --no-rdoc --pre asciidoctor-diagram && \
 gem install coderay && \
 gem install rouge && \
 gem install pygments.rb
 
-ENV DATE 9-9-2015
+ENV DATE 9-10-2015
 
 ADD ./asciidoctor-no-watermark-theme.yml /usr/local/share/gems/gems/asciidoctor-pdf-1.5.0.alpha.9/data/themes/asciidoctor-no-watermark-theme.yml
 ADD ./asciidoctor-watermark-theme.yml /usr/local/share/gems/gems/asciidoctor-pdf-1.5.0.alpha.9/data/themes/asciidoctor-watermark-theme.yml
 
 ADD ./scripts/version.sh /version.sh
+ADD ./template_images/bckcover.pdf /home/template_images/bckcover.pdf
+ADD ./template_images/rh-logo.png /home/template_images/rh-logo.png
+ADD ./template_images/rh-ra-banner.png /home/template_images/rh-ra-banner.png
+ADD ./template_images/watermark-draft.png /home/template_images/watermark-draft.png
 RUN chmod -v +x /version.sh
 
 WORKDIR /paper
