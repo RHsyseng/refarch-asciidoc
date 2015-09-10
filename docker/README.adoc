@@ -1,37 +1,49 @@
-You can build the image with the following command.  You'll want to choose which tag you use based on what has been released upstream.  It depends on what is in your dockerfile.  Whether or not you are calling the master branch or a released branch.
+= Purpose 
+
+The purpose of using the asciidoctor docker images is to remove installation process of asciidoctor and ensuring everyone within our team who is writing reference architectures is using the correct RA template.
+
+== Steps to Generate PDF using Asciidoctor Docker Image
+
+. Pull the image
+
++
 
 ```
-docker build -t asciidoctor:dev .
+$ docker pull docker-registry.usersys.redhat.com/asciidoctor:stable-alpha9-v2
 ```
-
-or
-
-```
-docker build -t asciidoctor:stable .
-```
-
-or
++
+. Check version of our Red Hat Reference architecture theme. The version is currently 1.1 and will be updated on this mojo page if it changes.
++
 
 ```
-docker build -t asciidoctor:1.5.0a8 .
+$ docker run asciidoctor:stable-alpha9-v2 /version.sh
+# meta Red Hat Systems Design and Engineering Reference Architecture Theme
+# meta Reference Architecture Theme Version 1.1
+# meta Maintained by Roger Lopez
+# meta Date: 9-10-2015
 ```
-
-
-After you have built the image, you can run it.
-
-```
-docker run -v /home/scollier/git_projects/ose-ha/:/paper -i -t asciidoctor:dev make
-```
-
-Or, you could just pull what I pushed to the Docker registry:
++
+. Copy the Makefile https://github.com/RHsyseng/refarch-asciidoc/blob/master/docker/Makefile into your local directory where your reference architecture resides.. Within your local directory of your paper, to generate a PDF with a DRAFT watermark run:
++
 
 ```
-docker pull docker.io/scollier/asciidoctor:dev
+$ docker run -v /path/to/local/ra/dir:/paper -i -t asciidoctor:stable-alpha9-v2 make docname=<filename> && evince <filename>.pdf
 ```
 
-Which cooresponds to the lastest master branch as of 7/2/2015.
+NOTE: The current stable release is alpha9. The above command will be updated upon the next stable release.
+NOTE: :/paper is the remote location within docker image, leave as is
+NOTE: Within docname make sure to include asciidoc extension (i.e. .adoc)
++
+. Within your local directory of your paper, to generate a PDF without a DRAFT watermark run (final version):
++
+```
+$ docker run -v /local/path/to/paper:/paper -i -t asciidoctor:stable-alpha9-v2 make stable-no-watermark docname=<filename> && evince <filename>.pdf
+```
++
 
-One other thing to note.  I am using a SysDes & eng theme created by Roger Lopez.  Shared here:
 
-https://gist.github.com/rlopez133/dbb3c6ea88bd559cf545
+NOTE: The current stable release is alpha9. The above command will be updated upon the next stable release.
+NOTE: Within docname make sure to include asciidoc extension (i.e. .adoc)
+
+For more info, on how to run dev, please visit the mojo page: https://mojo.redhat.com/docs/DOC-1046237
 
