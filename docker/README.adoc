@@ -40,6 +40,7 @@ NOTE: The :/paper is the remote location within docker image, leave as is
 
 NOTE: Within docname make sure to include asciidoc extension (i.e. .adoc)
 +
+
 . Within your local directory of your paper, to generate a PDF without a DRAFT watermark run (final version):
 
 +
