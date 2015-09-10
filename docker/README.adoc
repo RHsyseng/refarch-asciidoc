@@ -31,7 +31,6 @@ $ docker run asciidoctor:stable-alpha9-v2 /version.sh
 ```
 $ docker run -v /path/to/local/ra/dir:/paper -i -t asciidoctor:stable-alpha9-v2 make docname=<filename> && evince <filename>.pdf
 ```
-+
 
 NOTE: The current stable release is alpha9. The above command will be updated upon the next stable release.
 
