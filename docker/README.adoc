@@ -23,7 +23,9 @@ $ docker run asciidoctor:stable-alpha9-v2 /version.sh
 # meta Date: 9-10-2015
 ```
 +
-. Copy the Makefile https://github.com/RHsyseng/refarch-asciidoc/blob/master/docker/Makefile into your local directory where your reference architecture resides.. Within your local directory of your paper, to generate a PDF with a DRAFT watermark run:
+. Copy the Makefile https://github.com/RHsyseng/refarch-asciidoc/blob/master/docker/Makefile into your local directory where your reference architecture resides.
++
+. Within your local directory of your paper, to generate a PDF with a DRAFT watermark run:
 +
 
 ```
