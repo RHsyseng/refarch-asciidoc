@@ -1,0 +1,61 @@
+= PROJECT NAME
+Description
+Author <author email>
+
+== Editing
+
+The top level document is defined in the ``Makefile`` using the ``docroot``
+variable. This document includes the other components from the ``docs``,
+``images`` and ``code`` sub-directories when compiled.
+
+You must edit the ``Makefile`` and set the default document or provide the
+filename on the CLI as the ``docroot`` value
+
+== Compiling to PDF
+
+The ``Makefile`` provided uses a Docker image with the AsciiDoctor
+software embedded to compile the source to a PDF.
+
+    docker-registry.usersys.redhat.com/asciidoctor stable-alpha10-v1
+
+The default document root to compile is ``ose-dis-arch-Title.adoc``.
+
+By default the document is compiled with a _DRAFT_ watermark.  You can
+specify whether or not to include the watermark by providing a
+specific target for ``make``
+
+=== To create a draft document:
+
+A draft document will display a prominent pale red watermark with the
+word _DRAFT_ across the page.
+
+You can create a draft PDF from this source merely by calling _make_
+
+    make
+
+or
+
+    make draft
+
+To override the document root, add ``docroot=<filename>``
+
+   make draft docroot=ose-dis-arch-Title.adoc
+
+The other targets follow this pattern
+
+=== To create a release document:
+
+    make release
+
+=== To clean the directory:
+
+    make clean
+
+=== To create a draft doc with newer Asciidoc:
+
+    make draft-dev
+
+=== To create a release doc with newer Asciidoc:
+
+    make release-dev
+
