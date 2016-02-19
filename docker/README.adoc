@@ -9,18 +9,18 @@ The purpose of using the asciidoctor docker images is to remove installation pro
 +
 
 ```
-$ docker pull docker-registry.usersys.redhat.com/asciidoctor:stable-alpha9-v2
+$ docker pull docker-registry.usersys.redhat.com/asciidoctor:stable-alpha11-v2
 ```
 +
-. Check version of our Red Hat Reference architecture theme. The version is currently 1.1 and will be updated on this mojo page if it changes.
+. Check version of our Red Hat Reference architecture theme. The version is currently 1.2 and will be updated on this mojo page if it changes.
 +
 
 ```
-$ docker run asciidoctor:stable-alpha9-v2 /version.sh
+$ docker run asciidoctor:stable-alpha11-v2 /version.sh
 # meta Red Hat Systems Design and Engineering Reference Architecture Theme
-# meta Reference Architecture Theme Version 1.1
+# meta Reference Architecture Theme Version 1.2
 # meta Maintained by Roger Lopez
-# meta Date: 9-10-2015
+# meta Date: 2016-02-19
 ```
 +
 . Copy the Makefile https://github.com/RHsyseng/refarch-asciidoc/blob/master/docker/Makefile into your local directory where your reference architecture resides.
@@ -31,7 +31,7 @@ $ docker run asciidoctor:stable-alpha9-v2 /version.sh
 +
 
 ```
-$ docker run -v /path/to/local/ra/dir:/paper -i -t asciidoctor:stable-alpha9-v2 make docname=<filename> && evince <filename>.pdf
+$ docker run -v /path/to/local/ra/dir:/paper -i -t asciidoctor:stable-alpha11-v2 make docname=<filename> && evince <filename>.pdf
 ```
 +
 
@@ -39,7 +39,7 @@ $ docker run -v /path/to/local/ra/dir:/paper -i -t asciidoctor:stable-alpha9-v2 
 
 +
 ```
-$ docker run -v /local/path/to/paper:/paper -i -t asciidoctor:stable-alpha9-v2 make stable-no-watermark docname=<filename> && evince <filename>.pdf
+$ docker run -v /local/path/to/paper:/paper -i -t asciidoctor:stable-alpha11-v2 make stable-no-watermark docname=<filename> && evince <filename>.pdf
 ```
 +
 
