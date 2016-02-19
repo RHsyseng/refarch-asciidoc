@@ -1,7 +1,7 @@
 # meta Red Hat Systems Design and Engineering Reference Architecture Theme
-# meta Reference Architecture Theme Version 1.1
+# meta Reference Architecture Theme Version 1.2
 # meta Maintained by Roger Lopez
-# meta Date: 9-10-2015
+# meta Date: 11-17-2015
 font:
   catalog:
     Noto Serif:
@@ -263,6 +263,6 @@ header:
   height: 0.75in
   image_valign: 10
   recto_content:
-    right: image:/home/template_images/rh-logo.png[width=25]
+    right: image:/home/template_images/rh-logo.png[width=55]
   verso_content:
-    left: image:/home/template_images/rh-logo.png[width=25]
+    left: image:/home/template_images/rh-logo.png[width=55]
