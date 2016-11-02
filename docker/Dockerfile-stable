@@ -1,6 +1,6 @@
 FROM fedora
 
-RUN yum install -y git rubygems make gcc ruby-devel ditaa && \
+RUN yum install -y git rubygems make gcc ruby-devel ditaa redhat-rpm-config && \
 yum clean all && \
 gem install --pre asciidoctor-pdf && \
 gem install --no-ri --no-rdoc --pre asciidoctor-diagram && \
