@@ -10,8 +10,8 @@ gem install pygments.rb
 
 ENV DATE 9-11-2015
 
-ADD ./asciidoctor-no-watermark-theme.yml /usr/local/share/gems/gems/asciidoctor-pdf-1.5.0.alpha.9/data/themes/asciidoctor-no-watermark-theme.yml
-ADD ./asciidoctor-watermark-theme.yml /usr/local/share/gems/gems/asciidoctor-pdf-1.5.0.alpha.9/data/themes/asciidoctor-watermark-theme.yml
+ADD ./asciidoctor-no-watermark-theme.yml /usr/local/share/gems/gems/asciidoctor-pdf-1.5.0.alpha.13/data/themes/asciidoctor-no-watermark-theme.yml
+ADD ./asciidoctor-watermark-theme.yml /usr/local/share/gems/gems/asciidoctor-pdf-1.5.0.alpha.13/data/themes/asciidoctor-watermark-theme.yml
 
 ADD ./scripts/version.sh /version.sh
 ADD ./template_images/bckcover.pdf /home/template_images/bckcover.pdf
