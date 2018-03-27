@@ -1,4 +1,4 @@
-= PROJECT NAME
+= Refarch Asciidoc
 Description
 Author <author email>
 
